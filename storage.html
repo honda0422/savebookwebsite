@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>보관함</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .delete {
+            color: red;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>보관함</h1>
+    <ul id="bookList"></ul>
+    <a href="trash.html">휴지통</a>
+    <script>
+        function loadBooks() {
+            const books = JSON.parse(localStorage.getItem('books')) || [];
+            const bookList = document.getElementById('bookList');
+            bookList.innerHTML = '';
+            books.forEach((book, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `${index + 1}. 제목: ${book.title}, 작가: ${book.author}, 페이지: ${book.pages}, 날짜: ${book.readDate} <span class="delete" onclick="deleteBook(${index})">삭제</span>`;
+                bookList.appendChild(li);
+            });
+        }
+        function deleteBook(index) {
+            let books = JSON.parse(localStorage.getItem('books')) || [];
+            let trash = JSON.parse(localStorage.getItem('trash')) || [];
+            trash.push(books[index]);
+            books.splice(index, 1);
+            localStorage.setItem('books', JSON.stringify(books));
+            localStorage.setItem('trash', JSON.stringify(trash));
+            loadBooks();
+        }
+        loadBooks();
+    </script>
+</body>
+</html>
