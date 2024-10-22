@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>책 보관함</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #fff;
+        }
+        #gif-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #form-container {
+            margin-bottom: 20px;
+        }
+        input {
+            margin-right: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #auth-container {
+            margin-top: 20px;
+        }
+        #storage-link {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            font-size: 44px;
+            text-decoration: none;
+            color: #e7dc93;
+        }
+    </style>
+</head>
+<body>
+    <div id="gif-container">
+        <iframe src="https://giphy.com/embed/xT77Y1T0zY1gR5qe5O" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+        <p><a href="https://giphy.com/gifs/animation-book-pages-xT77Y1T0zY1gR5qe5O">via GIPHY</a></p>
+    </div>
+    <div id="form-container">
+        <input type="text" id="bookTitle" placeholder="책 제목">
+        <input type="text" id="bookAuthor" placeholder="작가">
+        <input type="number" id="bookPages" placeholder="페이지 수">
+        <input type="date" id="readDate">
+        <button onclick="addBook()">확인</button>
+    </div>
+    <div id="auth-container">
+        <button onclick="alert('개발중입니다!')">로그인</button>
+        <button onclick="alert('개발중입니다!!')">회원가입</button>
+    </div>
+    <a id="storage-link" href="storage.html">보관함</a>
+    <script>
+        function addBook() {
+            const title = document.getElementById('bookTitle').value;
+            const author = document.getElementById('bookAuthor').value;
+            const pages = document.getElementById('bookPages').value;
+            const readDate = document.getElementById('readDate').value;
+            if (title && author && pages && readDate) {
+                const book = { title, author, pages, readDate };
+                let books = JSON.parse(localStorage.getItem('books')) || [];
+                books.push(book);
+                localStorage.setItem('books', JSON.stringify(books));
+                document.getElementById('bookTitle').value = '';
+                document.getElementById('bookAuthor').value = '';
+                document.getElementById('bookPages').value = '';
+                document.getElementById('readDate').value = '';
+                alert('책이 추가되었습니다!');
+            } else {
+                alert('모든 필드를 입력해주세요!');
+            }
+        }
+    </script>
+</body>
+</html>
