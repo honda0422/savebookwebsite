@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>휴지통</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <iframe src="https://giphy.com/embed/sMT9MBtrHqqbuXf7dD" width="480" height="271" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/carolinespencemusic-sMT9MBtrHqqbuXf7dD">via GIPHY</a></p>
+    
+    <h1>휴지통</h1>
+    <ul id="trashList"></ul>
+    <script>
+        function loadTrash() {
+            const trash = JSON.parse(localStorage.getItem('trash')) || [];
+            const trashList = document.getElementById('trashList');
+            trashList.innerHTML = '';
+            trash.forEach((book, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `${index + 1}. 제목: ${book.title}, 작가: ${book.author}, 페이지: ${book.pages}, 날짜: ${book.readDate}`;
+                trashList.appendChild(li);
+            });
+        }
+        loadTrash();
+    </script>
+</body>
+</html>
